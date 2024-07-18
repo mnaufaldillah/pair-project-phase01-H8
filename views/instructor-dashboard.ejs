@@ -12,7 +12,7 @@
     <title>Document</title>
   </head>
   <body>
-    <!-- Navbar -->
+    <!-- Navbar (Edit sudah diberi name namun pada form belum ada action nya) -->
     <div class="navbar bg-base-100 shadow-lg shadow-blue-200/20">
       <div class="flex-1">
         <a class="btn btn-ghost text-xl">EdTech</a>
@@ -78,6 +78,7 @@
                       type="text"
                       placeholder="Description"
                       class="input input-bordered input-primary w-full max-w-xs"
+                      name="descriptionProfile"
                     />
                     <label for="" class="block text-sm font-medium mt-4"
                       >Location</label
@@ -86,7 +87,9 @@
                       type="text"
                       placeholder="Location"
                       class="input input-bordered input-primary w-full max-w-xs"
+                      name="location"
                     />
+                    <!-- untuk tombol update saya menggunakan input submit (tolong koreksi jika salah) -->
                     <input class="btn mt-6" type="submit" value="Update" />
                   </form>
                 </div>
@@ -103,7 +106,7 @@
     <main class="p-4">
       <h1 class="text-center text-4xl">Hello, Instructor</h1>
 
-      <!-- Add Course -->
+      <!-- Add Course (SUDAH DIBERI NAME, NAMUN PADA OPTION BELUM ADA VALUE) -->
       <button
         class="btn shadow-lg shadow-green-500/50"
         onclick="my_modal_1.showModal()"
@@ -121,13 +124,14 @@
           <h2 class="text-2xl font-bold mb-4">Tambah Materi</h2>
           <form id="courseForm" action="" method="post">
             <div class="mb-4">
-              <label for="courseTitle" class="block text-sm font-medium"
+              <label for="label" class="block text-sm font-medium"
                 >Judul Materi</label
               >
               <input
                 type="text"
                 placeholder="Judul"
                 class="input input-bordered input-primary w-full max-w-xs"
+                name="courseName"
               />
             </div>
             <div class="mb-4">
@@ -137,8 +141,9 @@
               <select
                 id="courseDescription"
                 class="select select-primary w-full max-w-xs"
+                name="categoryName"
               >
-                <option disabled selected>Pilih Deskripsi Materi</option>
+                <option disabled selected>Pilih Kategori Materi</option>
                 <option>Game of Thrones</option>
               </select>
             </div>
@@ -150,6 +155,7 @@
                 type="text"
                 placeholder="Deskripsi"
                 class="input input-bordered input-primary w-full max-w-xs"
+                name="description"
               />
             </div>
             <div class="mb-4">
@@ -160,6 +166,7 @@
                 type="number"
                 placeholder="Durasi"
                 class="input input-bordered input-primary w-full max-w-xs"
+                name="duration"
               />
             </div>
             <div class="mb-4">
@@ -170,12 +177,14 @@
                 id="courseContent"
                 class="textarea textarea-bordered w-full mt-1"
                 rows="4"
+                name="content"
               ></textarea>
             </div>
             <button type="submit" class="btn btn-primary w-full">Tambah</button>
           </form>
         </div>
       </dialog>
+      <!-- End of Add Course -->
 
       <!-- Daftar Materi -->
       <div
@@ -204,6 +213,7 @@
             >
               Edit
             </button>
+            <!-- MODAL EDIT (Name sudah diberi semua namun pada option belum ada value, value nya belum semua)-->
             <dialog id="my_modal_4" class="modal">
               <div class="modal-box relative">
                 <button
@@ -222,6 +232,8 @@
                       type="text"
                       placeholder="Judul"
                       class="input input-bordered input-primary w-full max-w-xs"
+                      name="courseName"
+                      value=""
                     />
                   </div>
                   <div class="mb-4">
@@ -233,6 +245,7 @@
                     <select
                       id="courseDescription"
                       class="select select-primary w-full max-w-xs"
+                      name="categoryName"
                     >
                       <option disabled selected>Pilih Deskripsi Materi</option>
                       <option>Game of Thrones</option>
@@ -248,6 +261,8 @@
                       type="text"
                       placeholder="Deskripsi"
                       class="input input-bordered input-primary w-full max-w-xs"
+                      name="description"
+                      value=""
                     />
                   </div>
                   <div class="mb-4">
@@ -260,6 +275,8 @@
                       type="number"
                       placeholder="Durasi"
                       class="input input-bordered input-primary w-full max-w-xs"
+                      name="duration"
+                      value=""
                     />
                   </div>
                   <div class="mb-4">
@@ -270,6 +287,7 @@
                       id="courseContent"
                       class="textarea textarea-bordered w-full mt-1"
                       rows="4"
+                      name="content"
                     ></textarea>
                   </div>
                   <button type="submit" class="btn btn-primary w-full">
@@ -278,6 +296,7 @@
                 </form>
               </div>
             </dialog>
+            <!-- END OF MODAL EDIT -->
           </div>
         </div>
         <!-- Contoh card materi selesai -->
