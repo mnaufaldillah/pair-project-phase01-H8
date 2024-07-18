@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-lg shadow-blue-200/20">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">EdTech</a>
+      </div>
+      <div class="flex-none gap-2">
+        <div class="dropdown dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost btn-circle avatar"
+          >
+            <div class="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              />
+            </div>
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <button class="btn" onclick="my_modal_2.showModal()">
+                Profile
+              </button>
+              <dialog
+                id="my_modal_2"
+                class="modal absolute justify-center items-center"
+              >
+                <div class="modal-box relative w-96">
+                  <button
+                    class="btn btn-sm btn-circle absolute right-2 top-2"
+                    onclick="my_modal_2.close()"
+                  >
+                    ✕
+                  </button>
+                  <h2 class="text-2xl mb-4">Description:</h2>
+                  <h2 class="text-2xl mb-4">Location:</h2>
+                  <h2 class="text-2xl mb-4">Total Likes:</h2>
+                </div>
+              </dialog>
+
+              <button class="btn" onclick="my_modal_3.showModal()">
+                Edit Profile
+              </button>
+              <dialog
+                id="my_modal_3"
+                class="modal absolute justify-center items-center"
+              >
+                <div class="modal-box relative w-96">
+                  <button
+                    class="btn btn-sm btn-circle absolute right-2 top-2"
+                    onclick="my_modal_3.close()"
+                  >
+                    ✕
+                  </button>
+                  <form action="" method="post">
+                    <label for="" class="block text-sm font-medium"
+                      >Description</label
+                    >
+                    <input
+                      type="text"
+                      placeholder="Description"
+                      class="input input-bordered input-primary w-full max-w-xs"
+                    />
+                    <label for="" class="block text-sm font-medium mt-4"
+                      >Location</label
+                    >
+                    <input
+                      type="text"
+                      placeholder="Location"
+                      class="input input-bordered input-primary w-full max-w-xs"
+                    />
+                    <input class="btn mt-6" type="submit" value="Update" />
+                  </form>
+                </div>
+              </dialog>
+            </li>
+            <button class="btn">Logout</button>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Navbar -->
+
+    <!-- Main Dashboard -->
+    <main class="p-4">
+      <h1 class="text-center text-4xl">Hello, Instructor</h1>
+
+      <!-- Add Course -->
+      <button
+        class="btn shadow-lg shadow-green-500/50"
+        onclick="my_modal_1.showModal()"
+      >
+        Add Course
+      </button>
+      <dialog id="my_modal_1" class="modal">
+        <div class="modal-box relative">
+          <button
+            class="btn btn-sm btn-circle absolute right-2 top-2"
+            onclick="my_modal_1.close()"
+          >
+            ✕
+          </button>
+          <h2 class="text-2xl font-bold mb-4">Tambah Materi</h2>
+          <form id="courseForm" action="" method="post">
+            <div class="mb-4">
+              <label for="courseTitle" class="block text-sm font-medium"
+                >Judul Materi</label
+              >
+              <input
+                type="text"
+                placeholder="Judul"
+                class="input input-bordered input-primary w-full max-w-xs"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="courseDescription" class="block text-sm font-medium"
+                >Kategori Materi</label
+              >
+              <select
+                id="courseDescription"
+                class="select select-primary w-full max-w-xs"
+              >
+                <option disabled selected>Pilih Deskripsi Materi</option>
+                <option>Game of Thrones</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="courseDescription" class="block text-sm font-medium"
+                >Deskripsi Materi</label
+              >
+              <input
+                type="text"
+                placeholder="Deskripsi"
+                class="input input-bordered input-primary w-full max-w-xs"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="courseDescription" class="block text-sm font-medium"
+                >Durasi Materi</label
+              >
+              <input
+                type="number"
+                placeholder="Durasi"
+                class="input input-bordered input-primary w-full max-w-xs"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="courseContent" class="block text-sm font-medium"
+                >Konten Materi</label
+              >
+              <textarea
+                id="courseContent"
+                class="textarea textarea-bordered w-full mt-1"
+                rows="4"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-full">Tambah</button>
+          </form>
+        </div>
+      </dialog>
+
+      <!-- Daftar Materi -->
+      <div
+        id="courseList"
+        class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
+        <!-- Contoh card materi -->
+        <div class="card bg-base-100 shadow-lg shadow-blue-500/50">
+          <button
+            class="btn btn-sm btn-circle absolute right-2 top-2 bg-red-700"
+          >
+            X
+          </button>
+          <div class="card-body">
+            <h3 class="card-title">Judul Materi - duration</h3>
+            <p>Kategori</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
+              laboriosam omnis, neque quo, culpa officiis quasi harum eaque
+              atque ipsa sequi dignissimos enim ad aperiam! Repudiandae animi
+              voluptatibus laboriosam doloribus?
+            </p>
+            <button
+              class="btn shadow-lg shadow-green-500/50"
+              onclick="my_modal_4.showModal()"
+            >
+              Edit
+            </button>
+            <dialog id="my_modal_4" class="modal">
+              <div class="modal-box relative">
+                <button
+                  class="btn btn-sm btn-circle absolute right-2 top-2"
+                  onclick="my_modal_4.close()"
+                >
+                  ✕
+                </button>
+                <h2 class="text-2xl font-bold mb-4">Edit Materi</h2>
+                <form id="courseForm" action="" method="post">
+                  <div class="mb-4">
+                    <label for="courseTitle" class="block text-sm font-medium"
+                      >Judul Materi</label
+                    >
+                    <input
+                      type="text"
+                      placeholder="Judul"
+                      class="input input-bordered input-primary w-full max-w-xs"
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label
+                      for="courseDescription"
+                      class="block text-sm font-medium"
+                      >Kategori Materi</label
+                    >
+                    <select
+                      id="courseDescription"
+                      class="select select-primary w-full max-w-xs"
+                    >
+                      <option disabled selected>Pilih Deskripsi Materi</option>
+                      <option>Game of Thrones</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label
+                      for="courseDescription"
+                      class="block text-sm font-medium"
+                      >Deskripsi Materi</label
+                    >
+                    <input
+                      type="text"
+                      placeholder="Deskripsi"
+                      class="input input-bordered input-primary w-full max-w-xs"
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label
+                      for="courseDescription"
+                      class="block text-sm font-medium"
+                      >Durasi Materi</label
+                    >
+                    <input
+                      type="number"
+                      placeholder="Durasi"
+                      class="input input-bordered input-primary w-full max-w-xs"
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label for="courseContent" class="block text-sm font-medium"
+                      >Konten Materi</label
+                    >
+                    <textarea
+                      id="courseContent"
+                      class="textarea textarea-bordered w-full mt-1"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-full">
+                    Edit
+                  </button>
+                </form>
+              </div>
+            </dialog>
+          </div>
+        </div>
+        <!-- Contoh card materi selesai -->
+      </div>
+    </main>
+    <!-- Main Dashboard -->
+  </body>
+</html>
