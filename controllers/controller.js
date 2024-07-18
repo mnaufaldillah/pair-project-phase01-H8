@@ -2,6 +2,11 @@ const { User, Course, Profile, Category, sequelize } = require(`../models/index.
 const bcrypt = require(`bcryptjs`);
 const { Op, where } = require(`sequelize`);
 const { addNickName } = require(`../helpers/helper.js`);
+const pdf = require(`pdf-node`);
+const path = require("path");
+const { error } = require("console");
+const fs = require(`fs`).promises;
+const { type } = require("os");
 
 class Controller {
     static async renderHome(req, res) {
@@ -196,8 +201,50 @@ class Controller {
 
     static async handleGeneratePDFCourse(req, res) {
         try {
+            const { CourseId } = req.params;
+            const dataCourse = await Course.findByPk(CourseId, {
+                include: [
+                    {
+                        model: Category
+                    }
+                ]
+            });
+
+            const html = await fs.readFile(`./views/templatePDF.html`, `utf8`);
+            const options = {
+                format: "A3",
+                orientation: "portrait",
+                border: "10mm",
+                header: {
+                    height: "45mm",
+                },
+                footer: {
+                    height: "28mm",
+                }
+            };
+            const filename = Math.random() + `_edTech` + `.pdf`;
+
+            const document = {
+                html,
+                data: {
+                    dataCourse
+                },
+                path: `./docs/` + filename,
+                type: `pdf`
+            };
+
             
+
+            pdf(document, options)
+                .then((res) => {
+                    console.log(res);
+                }).catch((error) => {
+                    console.log(error);
+                })
+            
+            res.redirect(`/students/dashboard`);
         } catch (error) {
+            console.log(error);
             res.send(error);
         }
     }
