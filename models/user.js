@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         through: models.UserCourse,
         foreignKey: `UserId`,
       });
+      User.belongsTo(models.Profile)
     }
   }
   User.init(
