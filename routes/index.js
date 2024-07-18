@@ -50,10 +50,11 @@ router.get(`/signOut`, Controller.handlerSignOut);
 
 // Route untuk instructor & student dashboard
 router.get("/instructors/dashboard", isInstructor, Controller.renderInstructorDashboard);
+router.post(`/instructors/courseAdd`, Controller.handlerAddCourse);
 
-router.get("/students/dashboard", (req, res) => {
-  res.render("student-dashboard");
-});
+router.post(`/instructors/courseEdit/:CourseId`, Controller.handlerEditCourse);
+
+router.get("/students/dashboard", Controller.renderStudentDashboard);
 
 // Route untuk courses
 router.get("/courses", (req, res) => {

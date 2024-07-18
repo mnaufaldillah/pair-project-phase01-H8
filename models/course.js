@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: `CourseId`
       // });
     }
+
+    get durationInMinutes() {
+      return `${this.duration} Menit`
+    }
   }
   Course.init({
     name: DataTypes.STRING,

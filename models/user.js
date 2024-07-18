@@ -21,6 +21,33 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: `UserId`
       // });
     }
+
+    static async getUserAndCourse(search, userId) {
+      let option = {};
+
+      if(search) {
+          option.where.name = {
+              [Op.iLike]: `%${search}%`
+          }
+      }
+
+      const user = await User.findByPk(userId, {
+          include: [
+              {
+                  model: Profile,
+                  where: {
+                      UserId: {
+                          [Op.eq]: userId
+                      }
+                  }
+              }
+          ]
+      });
+
+      const courses = await Course.findAll();
+
+      return {user, courses};
+    }
   }
   User.init(
     {
