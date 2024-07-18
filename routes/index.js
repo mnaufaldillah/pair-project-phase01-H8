@@ -3,7 +3,6 @@ const router = require("express").Router();
 const routerPortals = require(`./portals.js`);
 
 const isSignedIn = (req, res, next) => {
-  console.log(req.session);
   if(!req.session.UserId) {
     const errors = `Please Sign In first`
     res.redirect(`/portals/signIn?errors=${errors}`);
@@ -13,11 +12,15 @@ const isSignedIn = (req, res, next) => {
 }
 
 const isInstructor = (req, res, next) => {
-  console.log(req.session);
+  // console.log(req.session);
   if(req.session.role === `Instructor`) {
     next();
   } else {
-    res.redirect(`/students/dashboard`)
+    if (!req.headerSent && req.originalUrl !== `//students/dashboard`) {
+      res.redirect(`/students/dashboard`);
+    } else {
+      next()
+    }
   }
 }
 
@@ -43,12 +46,10 @@ router.use(isSignedIn);
 //Route untuk sign out
 router.get(`/signOut`, Controller.handlerSignOut);
 
-router.use(isInstructor);
+// router.use(isInstructor);
 
 // Route untuk instructor & student dashboard
-router.get("/instructors/dashboard", (req, res) => {
-  res.render("instructor-dashboard");
-});
+router.get("/instructors/dashboard", isInstructor, Controller.renderInstructorDashboard);
 
 router.get("/students/dashboard", (req, res) => {
   res.render("student-dashboard");

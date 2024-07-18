@@ -51,8 +51,9 @@
                     ✕
                   </button>
                   <h2 class="text-2xl mb-4">Description:</h2>
-                  <h2 class="text-2xl mb-4">Location:</h2>
-                  <h2 class="text-2xl mb-4">Total Likes:</h2>
+                  <p><%= data.Profile.description %></p>
+                  <h2 class="text-2xl mb-4">Location: <%= data.Profile.location %></h2>
+                  <h2 class="text-2xl mb-4">Total Likes: <%= data.Profile.totalLikes %></h2>
                 </div>
               </dialog>
 
@@ -95,7 +96,9 @@
                 </div>
               </dialog>
             </li>
-            <button class="btn">Logout</button>
+            <a href="/signOut">
+              <button class="btn">Logout</button>
+            </a>
           </ul>
         </div>
       </div>
@@ -131,19 +134,17 @@
                 type="text"
                 placeholder="Judul"
                 class="input input-bordered input-primary w-full max-w-xs"
-                name="courseName"
               />
             </div>
             <div class="mb-4">
-              <label for="courseDescription" class="block text-sm font-medium"
+              <label for="courseCategory" class="block text-sm font-medium"
                 >Kategori Materi</label
               >
               <select
-                id="courseDescription"
+                id="courseCategory"
                 class="select select-primary w-full max-w-xs"
-                name="categoryName"
               >
-                <option disabled selected>Pilih Kategori Materi</option>
+                <option disabled selected>Pilih Deskripsi Materi</option>
                 <option>Game of Thrones</option>
               </select>
             </div>
@@ -155,18 +156,16 @@
                 type="text"
                 placeholder="Deskripsi"
                 class="input input-bordered input-primary w-full max-w-xs"
-                name="description"
               />
             </div>
             <div class="mb-4">
-              <label for="courseDescription" class="block text-sm font-medium"
+              <label for="courseDuration" class="block text-sm font-medium"
                 >Durasi Materi</label
               >
               <input
                 type="number"
                 placeholder="Durasi"
                 class="input input-bordered input-primary w-full max-w-xs"
-                name="duration"
               />
             </div>
             <div class="mb-4">
@@ -177,7 +176,6 @@
                 id="courseContent"
                 class="textarea textarea-bordered w-full mt-1"
                 rows="4"
-                name="content"
               ></textarea>
             </div>
             <button type="submit" class="btn btn-primary w-full">Tambah</button>

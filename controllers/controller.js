@@ -1,5 +1,6 @@
-const { User } = require(`../models/index.js`);
+const { User, Course, Profile, Category } = require(`../models/index.js`);
 const bcrypt = require(`bcryptjs`);
+const { Op, where } = require(`sequelize`);
 
 class Controller {
     static async renderHome(req, res) {
@@ -42,7 +43,7 @@ class Controller {
                 if(isValidPassword) {
                     req.session.UserId = data.id;
                     req.session.role = data.role;
-                    res.redirect(`/`)
+                    res.redirect(`/instructors/dashboard`)
                 } else {
                     const errors = `Invalid email or password`;
                     res.redirect(`/portals/signIn?errors=${errors}`)
@@ -102,6 +103,104 @@ class Controller {
                     res.redirect(`/`);
                 }
             })
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async renderInstructorDashboard(req, res) {
+        try {
+            const userId = req.session.UserId;
+            console.log(userId);
+
+            const data = await User.findByPk(userId, {
+                include: [
+                    {
+                        model: Profile,
+                        where: {
+                            UserId: {
+                                [Op.eq]: userId
+                            }
+                        }
+                    },
+                    {
+                        model: Course
+                    }
+                ]
+            });
+            console.log(data);
+
+            const categories = await Category.findAll();
+
+            res.render("instructor-dashboard", {data, categories});
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
+    }
+
+    static async renderStudentDashboard(req, res) {
+        try {
+            const courses = await Course.findAll();
+            console.log(courses);
+
+            res.render("student-dashboard", {data, courses});
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async renderCourseDetail(req, res) {
+        try {
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async handleGeneratePDFCourse(req, res) {
+        try {
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async handlerAddCourse(req, res) {
+        try {
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async handlerEditCourse(req, res) {
+        try {
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async handlerDeleteCourse(req, res) {
+        try {
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async handlerLikeCourse(req, res) {
+        try {
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async handlerEditProfile(req, res) {
+        try {
+            
         } catch (error) {
             res.send(error);
         }
