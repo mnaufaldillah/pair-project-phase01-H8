@@ -1,0 +1,43 @@
+[
+    {
+      "id": 1,
+      "name": "Fundamental JavaScript"
+    },
+    {
+      "id": 2,
+      "name": "Frontend Development dengan JavaScript"
+    },
+    {
+      "id": 3,
+      "name": "Backend Development dengan JavaScript"
+    },
+    {
+      "id": 4,
+      "name": "Database Management"
+    },
+    {
+      "id": 5,
+      "name": "Fullstack Development"
+    },
+    {
+      "id": 6,
+      "name": "DevOps dan Deployment"
+    },
+    {
+      "id": 7,
+      "name": "Testing dan Debugging"
+    },
+    {
+      "id": 8,
+      "name": "Web Security"
+    },
+    {
+      "id": 9,
+      "name": "Project Management dan Workflow"
+    },
+    {
+      "id": 10,
+      "name": "Performance Optimization"
+    }
+  ]
+  
