@@ -1,6 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 const bcrypt = require(`bcryptjs`);
+const { Op, where } = require(`sequelize`);
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -26,25 +27,22 @@ module.exports = (sequelize, DataTypes) => {
       let option = {};
 
       if(search) {
-          option.where.name = {
+          option.where = {
+            name: {
               [Op.iLike]: `%${search}%`
+            }
           }
       }
 
       const user = await User.findByPk(userId, {
           include: [
               {
-                  model: Profile,
-                  where: {
-                      UserId: {
-                          [Op.eq]: userId
-                      }
-                  }
+                  model: sequelize.models.Profile,
               }
           ]
       });
 
-      const courses = await Course.findAll();
+      const courses = await sequelize.models.Course.findAll(option);
 
       return {user, courses};
     }

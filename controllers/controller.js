@@ -1,4 +1,4 @@
-const { User, Course, Profile, Category } = require(`../models/index.js`);
+const { User, Course, Profile, Category, sequelize } = require(`../models/index.js`);
 const bcrypt = require(`bcryptjs`);
 const { Op, where } = require(`sequelize`);
 const { addNickName } = require(`../helpers/helper.js`);
@@ -71,7 +71,7 @@ class Controller {
         try {
             const {username, email, password, role} = req.body;
 
-            console.log(username, email, password, role);
+            // console.log(username, email, password, role);
 
             await User.create({
                 username,
@@ -83,8 +83,8 @@ class Controller {
             res.redirect(`/portals/signIn`);
         } catch (error) {
             if (error.name === `SequelizeValidationError`) {
-                const errors = error.errors.map((el) => {
-                    return el.message
+                const errors = error.errors.map((element) => {
+                    return element.message
                 });
 
                 res.redirect(`/portals/signUp?errors=${errors}`);
@@ -111,7 +111,7 @@ class Controller {
 
     static async renderInstructorDashboard(req, res) {
         try {
-            const { message } = req.query
+            const { message, errors } = req.query
             const userId = req.session.UserId;
 
             const data = await User.findByPk(userId, {
@@ -132,7 +132,7 @@ class Controller {
 
             const categories = await Category.findAll();
 
-            res.render("instructor-dashboard", {data, categories, message});
+            res.render("instructor-dashboard", {data, categories, message, errors});
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -177,7 +177,18 @@ class Controller {
 
     static async renderCourseDetail(req, res) {
         try {
-            
+            const { CourseId } = req.params;
+            const data = await Course.findByPk(CourseId, {
+                include: [
+                    {
+                        model: Category
+                    }
+                ]
+            });
+
+            // console.log(data);
+
+            res.render(`course-detail`, {data});
         } catch (error) {
             res.send(error);
         }
@@ -203,11 +214,19 @@ class Controller {
                 content: courseContent
             });
 
-            // console.log(courseName, courseCategory, courseDescription, courseDuration, courseContent);
 
             res.redirect(`/instructors/dashboard`);
         } catch (error) {
-            res.send(error);
+            if (error.name === `SequelizeValidationError`) {
+                const errors = error.errors.map((element) => {
+                    return element.message
+                });
+
+                res.redirect(`/instructors/dashboard?errors=${errors}`);
+            } else {
+                console.log(error);
+                res.send(error);
+            }
         }
     }
 
@@ -215,7 +234,7 @@ class Controller {
         try {
             const { CourseId } = req.params;
             const {courseName, courseCategory, courseDescription, courseDuration, courseContent} = req.body;
-            console.log(courseContent);
+            // console.log(courseContent);
 
             await Course.update({
                 name: courseName,
@@ -231,7 +250,16 @@ class Controller {
 
             res.redirect(`/instructors/dashboard`);
         } catch (error) {
-            res.send(error);
+            if (error.name === `SequelizeValidationError`) {
+                const errors = error.errors.map((element) => {
+                    return element.message
+                });
+
+                res.redirect(`/instructors/dashboard?errors=${errors}`);
+            } else {
+                console.log(error);
+                res.send(error);
+            }
         }
     }
 
@@ -241,7 +269,7 @@ class Controller {
             const data = await Course.findByPk(CourseId, {
                 include: [
                     {
-                        include: User
+                        model: User
                     }
                 ]
             });
@@ -252,24 +280,48 @@ class Controller {
                 }
             });
 
-            const message = `Course ${data.name} punya ${data.Users[0].name} telah di hapus`;
+            const message = `Course ${data.name} punya ${data.Users[0].username} telah di hapus`;
             res.redirect(`/instructors/dashboard?message=${message}`)
         } catch (error) {
+            console.log(error);
             res.send(error);
         }
     }
 
     static async handlerLikeCourse(req, res) {
         try {
-            
+            const { CourseId } = req.params;
+
+            await Course.increment({ 
+                numberOfLikes: 1
+            }, {
+                where: {
+                    id: CourseId
+                }
+            } );
+
+            res.redirect(`/course/detail/${CourseId}`);
         } catch (error) {
+            console.log(error);
             res.send(error);
         }
     }
 
     static async handlerEditProfile(req, res) {
         try {
-            
+            const { ProfileId } = req.params;
+            const { profileDescription, profileLocation } = req.body;
+
+            await Profile.update({
+                description: profileDescription,
+                location: profileLocation
+            }, {
+                where: {
+                    id: ProfileId
+                }
+            });
+
+            res.redirect(`/instructors/dashboard`);
         } catch (error) {
             res.send(error);
         }

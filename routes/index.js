@@ -1,6 +1,10 @@
 const Controller = require("../controllers/controller");
 const router = require("express").Router();
 const routerPortals = require(`./portals.js`);
+const routerInstructors = require(`./instructors.js`);
+const routerStudents = require(`./students.js`);
+const routerCourses = require(`./courses.js`);
+const routerProfiles = require(`./profiles.js`);
 
 const isSignedIn = (req, res, next) => {
   if(!req.session.UserId) {
@@ -28,18 +32,18 @@ const isInstructor = (req, res, next) => {
 router.get("/", Controller.renderHome);
 
 //!Kita diskusikan macam" routes nya
-// router.use("/portals", routerPortals);
-router.get("/portals", Controller.renderPortal);
+router.use("/portals", routerPortals);
+// router.get("/portals", Controller.renderPortal);
 
 // Route untuk sign in
-router.get("/portals/signIn", Controller.renderLogin);
+// router.get("/portals/signIn", Controller.renderLogin);
 
-router.post("/portals/signIn", Controller.handlerLogin);
+// router.post("/portals/signIn", Controller.handlerLogin);
 
 // Route untuk sign up
-router.get("/portals/signUp", Controller.renderSignUp);
+// router.get("/portals/signUp", Controller.renderSignUp);
 
-router.post("/portals/signUp", Controller.handlerSignUp);
+// router.post("/portals/signUp", Controller.handlerSignUp);
 
 router.use(isSignedIn);
 
@@ -49,17 +53,19 @@ router.get(`/signOut`, Controller.handlerSignOut);
 // router.use(isInstructor);
 
 // Route untuk instructor & student dashboard
-router.get("/instructors/dashboard", isInstructor, Controller.renderInstructorDashboard);
-router.post(`/instructors/courseAdd`, Controller.handlerAddCourse);
+router.use(`/instructors`, routerInstructors);
+// router.get("/instructors/dashboard", isInstructor, Controller.renderInstructorDashboard);
+// router.post(`/instructors/courseAdd`, Controller.handlerAddCourse);
 
-router.post(`/instructors/courseEdit/:CourseId`, Controller.handlerEditCourse);
+// router.post(`/instructors/courseEdit/:CourseId`, Controller.handlerEditCourse);
+// router.post(`/instructors/profileEdit/:ProfileId`, Controller.handlerEditProfile);
 
-router.get("/students/dashboard", Controller.renderStudentDashboard);
+// Route untuk student
+router.use("/students", routerStudents);
 
-// Route untuk courses
-router.get("/courses", (req, res) => {
-  res.render("course");
-});
+// Route untuk courses dan profiles
+router.use("/course", routerCourses);
+router.use("/profile", routerProfiles);
 
 // router.use((req, res, next) => {
 //   console.log(req.session);

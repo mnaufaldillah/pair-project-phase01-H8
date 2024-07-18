@@ -26,14 +26,52 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Course.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
+    name: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Course Name is Required`
+        },
+        notEmpty: {
+          msg: `Course Name is Required`
+        }
+      }
+    },
+    description: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Course Description is Required`
+        },
+        notEmpty: {
+          msg: `Course Description is Required`
+        }
+      }
+    },
     content: DataTypes.STRING,
-    duration: DataTypes.INTEGER,
+    duration: {
+      type:DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Course Duration is Required`
+        },
+        notEmpty: {
+          msg: `Course Duration is Required`
+        }
+      }
+    },
     numberOfLikes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Course',
   });
+
+  Course.beforeCreate((instance) => {
+    instance.numberOfLikes = 0;
+  });
+
   return Course;
 };
