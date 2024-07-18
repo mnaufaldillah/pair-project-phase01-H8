@@ -21,54 +21,60 @@
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
+          <% if (errors) { %>
+            <% errors = errors.split(`,`) %>
+            <% errors.forEach(element => { %>
+              <p class="text-error"><%= element %></p>
+            <% }) %>
+          <% } %>
         </div>
         <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form class="card-body" action="" method="post">
+          <form class="card-body" action="/portals/signUp" method="post">
             <div class="form-control">
-              <label class="label">
+              <label for="label">
                 <span class="label-text">Username</span>
               </label>
               <input
                 type="text"
-                placeholder="username"
+                placeholder="username" 
+                name="username"
                 class="input input-bordered"
-                required
               />
             </div>
             <div class="form-control">
-              <label class="label">
+              <label for="label">
                 <span class="label-text">Email</span>
               </label>
               <input
-                type="email"
+                type="text"
                 placeholder="email"
+                name="email"
                 class="input input-bordered"
-                required
               />
             </div>
             <div class="form-control">
-              <label class="label">
+              <label for="label">
                 <span class="label-text">Password</span>
               </label>
               <input
                 type="password"
-                placeholder="password"
+                placeholder="password" 
+                name="password"
                 class="input input-bordered"
-                required
               />
             </div>
             <div class="form-control">
-              <label class="label">
+              <label for="label">
                 <span class="label-text">Choose Role</span>
               </label>
-              <select class="select select-bordered w-full max-w-xs">
+              <select class="select select-bordered w-full max-w-xs" name="role">
                 <option disabled selected>Please Choose The Role</option>
-                <option>Instructor</option>
-                <option>Student</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Student">Student</option>
               </select>
             </div>
             <div class="form-control mt-6">
-              <a type="input" class="btn btn-primary">Sign Up</a>
+              <button type="submit" class="btn btn-primary">Sign Up</button>
             </div>
           </form>
         </div>

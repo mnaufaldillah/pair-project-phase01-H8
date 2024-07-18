@@ -21,38 +21,41 @@
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
+          <% if (errors) { %>
+            <p class="text-error"><%= errors %></p>
+          <% } %>
         </div>
         <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form class="card-body" action="" method="post">
+          <form class="card-body" action="/portals/signIn" method="post">
             <div class="form-control">
-              <label class="label">
+              <label for="label">
                 <span class="label-text">Email</span>
               </label>
               <input
-                type="email"
-                placeholder="email"
+                type="text"
+                placeholder="email" 
+                name="email"
                 class="input input-bordered"
-                required
               />
             </div>
             <div class="form-control">
-              <label class="label">
+              <label for="label">
                 <span class="label-text">Password</span>
               </label>
               <input
                 type="password"
-                placeholder="password"
+                placeholder="password" 
+                name="password"
                 class="input input-bordered"
-                required
               />
-              <label class="label">
+              <label for="label">
                 <a href="#" class="label-text-alt link link-hover"
                   >Forgot password?</a
                 >
               </label>
             </div>
             <div class="form-control mt-6">
-              <a type="input" class="btn btn-primary">Sign In</a>
+              <button type="submit" class="btn btn-primary">Sign In</button>
             </div>
           </form>
         </div>

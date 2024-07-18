@@ -13,14 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Course.belongsTo(models.Category);
       Course.belongsToMany(models.User, {
-        through: models.UserCourse,
-        foreignKey: `CategoryId`
+        through: models.UsersCourse,
+        foreignKey: `CourseId`
       });
     }
   }
   Course.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
+    content: DataTypes.STRING,
     duration: DataTypes.INTEGER,
     numberOfLikes: DataTypes.INTEGER
   }, {

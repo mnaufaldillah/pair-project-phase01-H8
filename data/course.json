@@ -1,0 +1,162 @@
+[
+    {
+      "id": 1,
+      "name": "JavaScript Basics",
+      "description": "Pelajari dasar-dasar JavaScript, termasuk sintaks dan konsep dasar.",
+      "duration": 15,
+      "numberOfLikes": 250,
+      "CategoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Advanced JavaScript",
+      "description": "Tingkatkan keterampilan JavaScript Anda dengan konsep lanjutan seperti closures dan asynchronous programming.",
+      "duration": 20,
+      "numberOfLikes": 180,
+      "CategoryId": 1
+    },
+    {
+      "id": 3,
+      "name": "HTML/CSS Basics",
+      "description": "Pelajari dasar-dasar HTML dan CSS untuk membuat halaman web yang menarik.",
+      "duration": 10,
+      "numberOfLikes": 300,
+      "CategoryId": 2
+    },
+    {
+      "id": 4,
+      "name": "React.js Fundamentals",
+      "description": "Mulai dengan React.js dan bangun antarmuka pengguna yang dinamis.",
+      "duration": 25,
+      "numberOfLikes": 210,
+      "CategoryId": 2
+    },
+    {
+      "id": 5,
+      "name": "Node.js Basics",
+      "description": "Pelajari dasar-dasar Node.js untuk pengembangan backend menggunakan JavaScript.",
+      "duration": 18,
+      "numberOfLikes": 220,
+      "CategoryId": 3
+    },
+    {
+      "id": 6,
+      "name": "Express.js and RESTful APIs",
+      "description": "Bangun API RESTful dengan Express.js dan Node.js.",
+      "duration": 22,
+      "numberOfLikes": 190,
+      "CategoryId": 3
+    },
+    {
+      "id": 7,
+      "name": "Introduction to MongoDB",
+      "description": "Pelajari dasar-dasar MongoDB, database NoSQL populer.",
+      "duration": 15,
+      "numberOfLikes": 170,
+      "CategoryId": 4
+    },
+    {
+      "id": 8,
+      "name": "SQL for Beginners",
+      "description": "Pelajari dasar-dasar SQL untuk mengelola dan memanipulasi database relasional.",
+      "duration": 12,
+      "numberOfLikes": 200,
+      "CategoryId": 4
+    },
+    {
+      "id": 9,
+      "name": "Fullstack MERN Development",
+      "description": "Pelajari pengembangan fullstack menggunakan stack MERN: MongoDB, Express.js, React.js, dan Node.js.",
+      "duration": 30,
+      "numberOfLikes": 260,
+      "CategoryId": 5
+    },
+    {
+      "id": 10,
+      "name": "Fullstack MEVN Development",
+      "description": "Pelajari pengembangan fullstack menggunakan stack MEVN: MongoDB, Express.js, Vue.js, dan Node.js.",
+      "duration": 28,
+      "numberOfLikes": 230,
+      "CategoryId": 5
+    },
+    {
+      "id": 11,
+      "name": "Git and GitHub Essentials",
+      "description": "Pelajari dasar-dasar version control dengan Git dan kolaborasi dengan GitHub.",
+      "duration": 12,
+      "numberOfLikes": 240,
+      "CategoryId": 6
+    },
+    {
+      "id": 12,
+      "name": "Continuous Integration with Jenkins",
+      "description": "Pelajari dasar-dasar continuous integration dan deployment dengan Jenkins.",
+      "duration": 20,
+      "numberOfLikes": 180,
+      "CategoryId": 6
+    },
+    {
+      "id": 13,
+      "name": "Unit Testing with Jest",
+      "description": "Pelajari dasar-dasar unit testing di JavaScript menggunakan Jest.",
+      "duration": 10,
+      "numberOfLikes": 160,
+      "CategoryId": 7
+    },
+    {
+      "id": 14,
+      "name": "End-to-End Testing with Cypress",
+      "description": "Pelajari cara melakukan end-to-end testing dengan Cypress untuk aplikasi web.",
+      "duration": 15,
+      "numberOfLikes": 150,
+      "CategoryId": 7
+    },
+    {
+      "id": 15,
+      "name": "Web Security Basics",
+      "description": "Pelajari dasar-dasar keamanan web untuk melindungi aplikasi dari serangan umum.",
+      "duration": 12,
+      "numberOfLikes": 210,
+      "CategoryId": 8
+    },
+    {
+      "id": 16,
+      "name": "Authentication and Authorization",
+      "description": "Pelajari teknik autentikasi dan otorisasi untuk aplikasi web.",
+      "duration": 18,
+      "numberOfLikes": 170,
+      "CategoryId": 8
+    },
+    {
+      "id": 17,
+      "name": "Agile Project Management",
+      "description": "Pelajari prinsip-prinsip manajemen proyek agile dan cara mengimplementasikannya.",
+      "duration": 15,
+      "numberOfLikes": 220,
+      "CategoryId": 9
+    },
+    {
+      "id": 18,
+      "name": "Collaboration Tools: Slack and Trello",
+      "description": "Pelajari cara menggunakan alat kolaborasi seperti Slack dan Trello untuk manajemen proyek.",
+      "duration": 10,
+      "numberOfLikes": 190,
+      "CategoryId": 9
+    },
+    {
+      "id": 19,
+      "name": "Frontend Performance Optimization",
+      "description": "Pelajari teknik untuk mengoptimalkan kinerja frontend aplikasi web.",
+      "duration": 20,
+      "numberOfLikes": 200,
+      "CategoryId": 10
+    },
+    {
+      "id": 20,
+      "name": "Backend Performance Optimization",
+      "description": "Pelajari teknik untuk mengoptimalkan kinerja backend aplikasi web.",
+      "duration": 18,
+      "numberOfLikes": 180,
+      "CategoryId": 10
+    }
+]

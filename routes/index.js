@@ -1,30 +1,49 @@
 const Controller = require("../controllers/controller");
 const router = require("express").Router();
+const routerPortals = require(`./portals.js`);
 
-router.get("/", () => {});
+const isSignedIn = (req, res, next) => {
+  console.log(req.session);
+  if(!req.session.UserId) {
+    const errors = `Please Sign In first`
+    res.redirect(`/portals/signIn?errors=${errors}`);
+  } else {
+    next()
+  }
+}
+
+const isInstructor = (req, res, next) => {
+  console.log(req.session);
+  if(req.session.role === `Instructor`) {
+    next();
+  } else {
+    res.redirect(`/students/dashboard`)
+  }
+}
+
+
+router.get("/", Controller.renderHome);
 
 //!Kita diskusikan macam" routes nya
-router.get("/portals", (req, res) => {
-  res.render("portal");
-});
+// router.use("/portals", routerPortals);
+router.get("/portals", Controller.renderPortal);
 
 // Route untuk sign in
-router.get("/portals/signIn", (req, res) => {
-  res.render("sign-in");
-});
+router.get("/portals/signIn", Controller.renderLogin);
 
-router.post("/portals/signIn", (req, res) => {
-  res.render("sign-in");
-});
+router.post("/portals/signIn", Controller.handlerLogin);
 
 // Route untuk sign up
-router.get("/portals/signUp", (req, res) => {
-  res.render("sign-up");
-});
+router.get("/portals/signUp", Controller.renderSignUp);
 
-router.post("/portals/signUp", (req, res) => {
-  res.render("sign-up");
-});
+router.post("/portals/signUp", Controller.handlerSignUp);
+
+router.use(isSignedIn);
+
+//Route untuk sign out
+router.get(`/signOut`, Controller.handlerSignOut);
+
+router.use(isInstructor);
 
 // Route untuk instructor & student dashboard
 router.get("/instructors/dashboard", (req, res) => {
@@ -39,5 +58,16 @@ router.get("/students/dashboard", (req, res) => {
 router.get("/courses", (req, res) => {
   res.render("course");
 });
+
+// router.use((req, res, next) => {
+//   console.log(req.session);
+//   if(!req.session.UserId) {
+//     const errors = `Please login first`
+//     res.redirect(`/portals/login?errors=${errors}`);
+//   } else {
+//     next()
+//   }
+// })
+
 
 module.exports = router;
