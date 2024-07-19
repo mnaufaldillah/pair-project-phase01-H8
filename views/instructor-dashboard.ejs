@@ -51,8 +51,9 @@
                     ✕
                   </button>
                   <h2 class="text-2xl mb-4">Description:</h2>
-                  <h2 class="text-2xl mb-4">Location:</h2>
-                  <h2 class="text-2xl mb-4">Total Likes:</h2>
+                  <p><%= data.Profile.description %></p>
+                  <h2 class="text-2xl mb-4">Location: <%= data.Profile.location %></h2>
+                  <h2 class="text-2xl mb-4">Total Likes: <%= data.Profile.totalLikes %></h2>
                 </div>
               </dialog>
 
@@ -70,32 +71,34 @@
                   >
                     ✕
                   </button>
-                  <form action="" method="post">
-                    <label for="" class="block text-sm font-medium"
+                  <form action="/profile/edit/<%= data.Profile.id %>" method="post">
+                    <label for="profileDescription" class="block text-sm font-medium"
                       >Description</label
                     >
                     <input
                       type="text"
                       placeholder="Description"
                       class="input input-bordered input-primary w-full max-w-xs"
-                      name="descriptionProfile"
+                      name="profileDescription"
+                      value="<%= data.Profile.description %>"
                     />
-                    <label for="" class="block text-sm font-medium mt-4"
+                    <label for="profileLocation" class="block text-sm font-medium mt-4"
                       >Location</label
                     >
                     <input
                       type="text"
                       placeholder="Location"
                       class="input input-bordered input-primary w-full max-w-xs"
-                      name="location"
+                      name="profileLocation"
+                      value="<%= data.Profile.location %>"
                     />
                     <!-- untuk tombol update saya menggunakan input submit (tolong koreksi jika salah) -->
-                    <input class="btn mt-6" type="submit" value="Update" />
+                     <button type="submit" class="btn mt-6">Update</button>
                   </form>
                 </div>
               </dialog>
             </li>
-            <button class="btn">Logout</button>
+            <button class="btn"><a href="/signOut">Logout</a></button>
           </ul>
         </div>
       </div>
@@ -104,7 +107,18 @@
 
     <!-- Main Dashboard -->
     <main class="p-4">
-      <h1 class="text-center text-4xl">Hello, Instructor</h1>
+      <h1 class="text-center text-4xl">Hello, <%= data.username %></h1>
+
+      <% if (errors) { %>
+        <% errors = errors.split(`,`) %>
+        <% errors.forEach(element => { %>
+          <p class="text-center text-error"><%= element %></p>
+        <% }) %>
+      <% } %>
+
+      <% if (message) { %>
+        <p class="text-center text-error"><%= message %></p>
+      <% } %>
 
       <!-- Add Course (SUDAH DIBERI NAME, NAMUN PADA OPTION BELUM ADA VALUE) -->
       <button
@@ -122,9 +136,9 @@
             ✕
           </button>
           <h2 class="text-2xl font-bold mb-4">Tambah Materi</h2>
-          <form id="courseForm" action="" method="post">
+          <form id="courseForm" action="/course/add" method="post">
             <div class="mb-4">
-              <label for="label" class="block text-sm font-medium"
+              <label for="courseName" class="block text-sm font-medium"
                 >Judul Materi</label
               >
               <input
@@ -135,16 +149,18 @@
               />
             </div>
             <div class="mb-4">
-              <label for="courseDescription" class="block text-sm font-medium"
+              <label for="courseCategory" class="block text-sm font-medium"
                 >Kategori Materi</label
               >
               <select
-                id="courseDescription"
+                id="courseCategory"
                 class="select select-primary w-full max-w-xs"
-                name="categoryName"
+                name="courseCategory"
               >
-                <option disabled selected>Pilih Kategori Materi</option>
-                <option>Game of Thrones</option>
+                <option disabled selected>Pilih Deskripsi Materi</option>
+                <% categories.forEach(element => { %>
+                  <option value="<%= element.id %>"><%= element.name %></option>
+                <% }) %>
               </select>
             </div>
             <div class="mb-4">
@@ -155,18 +171,18 @@
                 type="text"
                 placeholder="Deskripsi"
                 class="input input-bordered input-primary w-full max-w-xs"
-                name="description"
+                name="courseDescription"
               />
             </div>
             <div class="mb-4">
-              <label for="courseDescription" class="block text-sm font-medium"
+              <label for="courseDuration" class="block text-sm font-medium"
                 >Durasi Materi</label
               >
               <input
                 type="number"
                 placeholder="Durasi"
                 class="input input-bordered input-primary w-full max-w-xs"
-                name="duration"
+                name="courseDuration"
               />
             </div>
             <div class="mb-4">
@@ -177,7 +193,7 @@
                 id="courseContent"
                 class="textarea textarea-bordered w-full mt-1"
                 rows="4"
-                name="content"
+                name="courseContent"
               ></textarea>
             </div>
             <button type="submit" class="btn btn-primary w-full">Tambah</button>
@@ -191,115 +207,118 @@
         id="courseList"
         class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
       >
-        <!-- Contoh card materi -->
-        <div class="card bg-base-100 shadow-lg shadow-blue-500/50">
-          <button
-            class="btn btn-sm btn-circle absolute right-2 top-2 bg-red-700"
-          >
-            X
-          </button>
-          <div class="card-body">
-            <h3 class="card-title">Judul Materi - duration</h3>
-            <p>Kategori</p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-              laboriosam omnis, neque quo, culpa officiis quasi harum eaque
-              atque ipsa sequi dignissimos enim ad aperiam! Repudiandae animi
-              voluptatibus laboriosam doloribus?
-            </p>
-            <button
-              class="btn shadow-lg shadow-green-500/50"
-              onclick="my_modal_4.showModal()"
-            >
-              Edit
-            </button>
-            <!-- MODAL EDIT (Name sudah diberi semua namun pada option belum ada value, value nya belum semua)-->
-            <dialog id="my_modal_4" class="modal">
-              <div class="modal-box relative">
-                <button
-                  class="btn btn-sm btn-circle absolute right-2 top-2"
-                  onclick="my_modal_4.close()"
-                >
-                  ✕
-                </button>
-                <h2 class="text-2xl font-bold mb-4">Edit Materi</h2>
-                <form id="courseForm" action="" method="post">
-                  <div class="mb-4">
-                    <label for="courseTitle" class="block text-sm font-medium"
-                      >Judul Materi</label
-                    >
-                    <input
-                      type="text"
-                      placeholder="Judul"
-                      class="input input-bordered input-primary w-full max-w-xs"
-                      name="courseName"
-                      value=""
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label
-                      for="courseDescription"
-                      class="block text-sm font-medium"
-                      >Kategori Materi</label
-                    >
-                    <select
-                      id="courseDescription"
-                      class="select select-primary w-full max-w-xs"
-                      name="categoryName"
-                    >
-                      <option disabled selected>Pilih Deskripsi Materi</option>
-                      <option>Game of Thrones</option>
-                    </select>
-                  </div>
-                  <div class="mb-4">
-                    <label
-                      for="courseDescription"
-                      class="block text-sm font-medium"
-                      >Deskripsi Materi</label
-                    >
-                    <input
-                      type="text"
-                      placeholder="Deskripsi"
-                      class="input input-bordered input-primary w-full max-w-xs"
-                      name="description"
-                      value=""
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label
-                      for="courseDescription"
-                      class="block text-sm font-medium"
-                      >Durasi Materi</label
-                    >
-                    <input
-                      type="number"
-                      placeholder="Durasi"
-                      class="input input-bordered input-primary w-full max-w-xs"
-                      name="duration"
-                      value=""
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label for="courseContent" class="block text-sm font-medium"
-                      >Konten Materi</label
-                    >
-                    <textarea
-                      id="courseContent"
-                      class="textarea textarea-bordered w-full mt-1"
-                      rows="4"
-                      name="content"
-                    ></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary w-full">
-                    Edit
+         <% data.Courses.forEach(element => { %>
+          <!-- Contoh card materi -->
+          <div class="card bg-base-100 shadow-lg shadow-blue-500/50">
+            <a href="/course/delete/<%= element.id %>">
+              <button
+                class="btn btn-sm btn-circle absolute right-2 top-2 bg-red-700"
+              >
+                X
+              </button>
+            </a>
+            <div class="card-body">
+              <h3 class="card-title"><%= element.name %> - <%= element.durationInMinutes %></h3>
+              <p><%= element.Category.name %></p>
+              <p>
+                <%= element.description %>
+              </p>
+              <button
+                class="btn shadow-lg shadow-green-500/50"
+                onclick="my_modal_4_id_<%= element.id %>.showModal()"
+              >
+                Edit
+              </button>
+              <!-- MODAL EDIT (Name sudah diberi semua namun pada option belum ada value, value nya belum semua)-->
+              <dialog id="my_modal_4_id_<%= element.id %>" class="modal">
+                <div class="modal-box relative">
+                  <button
+                    class="btn btn-sm btn-circle absolute right-2 top-2"
+                    onclick="my_modal_4_id_<%= element.id %>.close()"
+                  >
+                    ✕
                   </button>
-                </form>
-              </div>
-            </dialog>
-            <!-- END OF MODAL EDIT -->
+                  <h2 class="text-2xl font-bold mb-4">Edit Materi</h2>
+                  <form id="courseForm" action="/course/edit/<%= element.id %>" method="post">
+                    <div class="mb-4">
+                      <label for="courseName" class="block text-sm font-medium"
+                        >Judul Materi</label
+                      >
+                      <input
+                        type="text"
+                        placeholder="Judul"
+                        class="input input-bordered input-primary w-full max-w-xs"
+                        name="courseName"
+                        value="<%= element.name %>"
+                      />
+                    </div>
+                    <div class="mb-4">
+                      <label
+                        for="courseCategory"
+                        class="block text-sm font-medium"
+                        >Kategori Materi</label
+                      >
+                      <select
+                        id="courseCategory"
+                        class="select select-primary w-full max-w-xs"
+                        name="courseCategory"
+                      >
+                        <option disabled selected>Pilih Deskripsi Materi</option>
+                        <% categories.forEach(item => { %>
+                          <option value="<%= item.id %>" <%= item.id === element.CategoryId ? `selected` : `` %>><%= item.name %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+                    <div class="mb-4">
+                      <label
+                        for="courseDescription"
+                        class="block text-sm font-medium"
+                        >Deskripsi Materi</label
+                      >
+                      <input
+                        type="text"
+                        placeholder="Deskripsi"
+                        class="input input-bordered input-primary w-full max-w-xs"
+                        name="courseDescription"
+                        value="<%= element.description %>"
+                      />
+                    </div>
+                    <div class="mb-4">
+                      <label
+                        for="courseDuration"
+                        class="block text-sm font-medium"
+                        >Durasi Materi</label
+                      >
+                      <input
+                        type="number"
+                        placeholder="Durasi"
+                        class="input input-bordered input-primary w-full max-w-xs"
+                        name="courseDuration"
+                        value="<%= element.duration %>"
+                      />
+                    </div>
+                    <div class="mb-4">
+                      <label for="courseContent" class="block text-sm font-medium"
+                        >Konten Materi</label
+                      >
+                      <textarea
+                        id="courseContent"
+                        class="textarea textarea-bordered w-full mt-1"
+                        rows="4"
+                        name="courseContent"
+                      ><%= element.content %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">
+                      Edit
+                    </button>
+                  </form>
+                </div>
+              </dialog>
+              <!-- END OF MODAL EDIT -->
+            </div>
           </div>
-        </div>
-        <!-- Contoh card materi selesai -->
+          <!-- Contoh card materi selesai -->
+         <% }) %>
       </div>
     </main>
     <!-- Main Dashboard -->

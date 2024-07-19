@@ -40,28 +40,21 @@
         <a class="btn btn-ghost text-xl">EdTech</a>
       </div>
       <div class="navbar-end">
-        <a href="/signOut" class="btn">Logout</a>
       </div>
     </div>
     <!-- Nav -->
-    <h1 class="text-center text-5xl pt-8"><%= data.name %></h1>
-    <p class="text-center"><%= data.Category.name %></p>
+    <h1 class="text-center text-5xl pt-8">{{dataCourse.name}}</h1>
+    <p class="text-center">{{dataCourse.Category.name}}</p>
     <div class="card bg-base-100 w-4/5 shadow-xl mx-40">
       <div class="card-body shadow-lg shadow-green-500/50">
         <p style="white-space: pre-line;">
-          <%= data.description %>
+            {{dataCourse.description}}
         </p>
         <p style="white-space: pre-line;">
-          <%= data.content %>
+            {{dataCourse.content}}
         </p>
         <div class="card-actions justify-end">
-          <p>Liked By: <%= data.numberOfLikes %></p>
-          <a href="/course/like/<%= data.id %>">
-            <button class="btn btn-secondary">Like</button>
-          </a>
-          <a href="/course/generatePDF/<%= data.id %>">
-            <button class="btn btn-accent">Download</button>
-          </a>
+          <p>Liked By: {{dataCourse.numberOfLikes}}</p>
         </div>
       </div>
     </div>
