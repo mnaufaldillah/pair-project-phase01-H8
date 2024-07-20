@@ -347,6 +347,24 @@ class Controller {
                 }
             } );
 
+            const dataCourse = await Course.findByPk(CourseId, {
+                include: [
+                    {
+                        model: User,
+                    }
+                ]
+              });
+        
+              if (dataCourse.Users[0]) {
+                await Profile.increment({ 
+                  totalLikes: 1
+                }, {
+                    where: {
+                        UserId: dataCourse.Users[0].id
+                    }
+                });
+              }
+
             res.redirect(`/course/detail/${CourseId}`);
         } catch (error) {
             console.log(error);

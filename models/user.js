@@ -129,7 +129,10 @@ module.exports = (sequelize, DataTypes) => {
 
   User.afterCreate((instance, options) => {
     sequelize.models.Profile.create({
-      UserId: instance.id
+      UserId: instance.id,
+      description: ``,
+      location: ``,
+      totalLikes: 0
     });
   });
 
