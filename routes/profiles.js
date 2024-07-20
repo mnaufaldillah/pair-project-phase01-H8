@@ -1,13 +1,6 @@
 const Controller = require("../controllers/controller");
 const router = require("express").Router();
 
-const attachReqToModel = (req, res, next) => {
-    sequelize.addHook(`beforeCreate`, (instance) => {
-        instance.req = req;
-    });
-    next();
-  }
-
-router.post(`/edit/:ProfileId`, attachReqToModel, Controller.handlerEditProfile);
+router.post(`/edit/:ProfileId`, Controller.handlerEditProfile);
 
 module.exports = router;
