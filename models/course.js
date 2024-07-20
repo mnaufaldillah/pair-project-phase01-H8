@@ -73,5 +73,12 @@ module.exports = (sequelize, DataTypes) => {
     instance.numberOfLikes = 0;
   });
 
+  Course.afterCreate((instance) => {
+    sequelize.models.UsersCourse.create({
+      CourseId: instance.id,
+      UserId: instance.req.session.UserId
+    });
+  });
+
   return Course;
 };
